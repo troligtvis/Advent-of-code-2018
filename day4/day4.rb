@@ -53,11 +53,10 @@ sorted.each { |v|
 
 		if currentId == "421" # hack because 421 is the guard sleeps the most
 			d1 = Date._strptime(prev[:time], "%H:%M")
-			d2 = Date._strptime(v[:time], "%H:%M")
-
+			
 			for i in 0..diff
-				d1[:min] += 1
 				key = d1[:min].to_s
+				d1[:min] += 1
 				h2[key] += 1
 			end
 		end
@@ -67,5 +66,6 @@ sorted.each { |v|
 	prev = v
 }
 
-puts h.max_by { |k, v| v }[0]
-puts h2.max_by { |k, v| v }[0]
+gId = h.max_by { |k, v| v }[0].to_i
+gMin = h2.max_by { |k, v| v }[0].to_i
+puts gId * gMin
