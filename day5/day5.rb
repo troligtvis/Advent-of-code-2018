@@ -1,17 +1,42 @@
 input = File.read("day5.txt")
-alphabet = ('a'..'z').to_a
-whiletrue = true
 
-while whiletrue
-	alphabet.each { |letter|
-		m = /#{letter}#{letter.upcase}|#{letter.upcase}#{letter}/.match(input)	
-		if m != nil 
-			whiletrue = true
-			input = input.gsub(/#{letter}#{letter.upcase}|#{letter.upcase}#{letter}/, '')
-			break
-		end
-		whiletrue = false
-	}
+def getUnits(str) 
+	alphabet = ('a'..'z').to_a
+	weEndItAll = false
+
+	until weEndItAll
+		alphabet.each { |letter|
+			m = /#{letter}#{letter.upcase}|#{letter.upcase}#{letter}/.match(str)	
+			if m != nil 
+				weEndItAll = false
+				str = str.gsub(/#{letter}#{letter.upcase}|#{letter.upcase}#{letter}/, '')
+				break
+			end
+			weEndItAll = true
+		}
+	end
+
+	return str.length
 end
 
-puts input.length
+# Part 1
+puts getUnits(input)
+
+def getShortestPolymer(str)
+	shortest = 0
+	alphabet = ('a'..'z').to_a
+
+	alphabet.each { |letter|
+		s = str.gsub(/#{letter}|#{letter.upcase}/, '')
+		units = getUnits(s)
+
+		if shortest == 0 || units < shortest 
+			shortest = units
+		end
+	}
+
+	return shortest
+end
+
+# Part 2
+puts getShortestPolymer(input)
