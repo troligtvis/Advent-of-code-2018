@@ -14,4 +14,4 @@ while whiletrue
 	}
 end
 
-puts input
+puts input.length
